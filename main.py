@@ -7,13 +7,13 @@ pygame.init()
 
 # Dimensions de la fenêtre et de la grille
 GRID_SIZE = 10
-CELL_SIZE = 30  # Taille d'une case
-SCREEN_WIDTH = GRID_SIZE * CELL_SIZE
-SCREEN_HEIGHT = GRID_SIZE * CELL_SIZE
+CELL_SIZE = 50
+SCREEN_WIDTH = GRID_SIZE * CELL_SIZE #taille de la grille en largeur
+SCREEN_HEIGHT = GRID_SIZE * CELL_SIZE #taille de la grille en hauteur
 
 # Couleurs
 WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
+darkRED = (133, 6, 6)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 YELLOW = (255, 255, 0)
@@ -31,9 +31,9 @@ player_size = CELL_SIZE
 grid = [[0 for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
 
 # Ajouter des caisses aléatoirement sur la grille avec une limite de 10 caisses
-def add_boxes(num_boxes):
+def ajout_caisses(num_caisses):
     count = 0
-    while count < num_boxes and count < 10:  # Limiter à 10 caisses maximum
+    while count < num_caisses :  # Limiter à 10 caisses maximum
         x = random.randint(0, GRID_SIZE - 1)
         y = random.randint(0, GRID_SIZE - 1)
         # Vérifier que la case est vide et n'est pas la position initiale du joueur
@@ -42,7 +42,7 @@ def add_boxes(num_boxes):
             count += 1
 
 # Ajouter 10 caisses aléatoirement au début
-add_boxes(10)
+ajout_caisses(10)
 
 # Liste pour stocker les bombes
 bombs = []
@@ -99,7 +99,7 @@ class Bomb:
     def draw(self):
         # Dessiner la bombe seulement si elle n'a pas encore explosé
         if not self.exploded:
-            pygame.draw.rect(screen, BLACK, (self.grid_x * CELL_SIZE, self.grid_y * CELL_SIZE, CELL_SIZE, CELL_SIZE))
+            pygame.draw.rect(screen, darkRED, (self.grid_x * CELL_SIZE, self.grid_y * CELL_SIZE, CELL_SIZE, CELL_SIZE))
 
 # Ajouter une fonction pour vérifier si toutes les caisses ont été détruites
 def check_win_condition():
@@ -115,7 +115,7 @@ def reset_game():
     player_y = 0
     bombs = []
     grid = [[0 for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
-    add_boxes(10)  # Réinitialiser les caisses avec une limite de 10
+    ajout_caisses(10)  # Réinitialiser les caisses avec une limite de 10
     game_over = False
     game_win = False
 
@@ -149,13 +149,13 @@ def draw_bombs():
 # Fonction pour afficher le message Game Over
 def show_game_over():
     font = pygame.font.SysFont(None, 15)
-    text = font.render("Game Over! Appuyez sur R pour recommencer", True, RED)
+    text = font.render("Game Over! cliquer sur R pour rejouer", True, RED)
     screen.blit(text, (SCREEN_WIDTH // 6, SCREEN_HEIGHT // 2))
 
 # Fonction pour afficher le message "Vous avez gagné"
 def show_game_won():
     font = pygame.font.SysFont(None, 15)
-    text = font.render("Vous avez gagné! Appuyez sur R pour recommencer", True, GREEN)
+    text = font.render("Vous avez gagné! cliquer sur R pour rejouer", True, GREEN)
     screen.blit(text, (SCREEN_WIDTH // 6, SCREEN_HEIGHT // 2))
 
 # Boucle de jeu
