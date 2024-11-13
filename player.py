@@ -1,11 +1,13 @@
-class Player1:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-        self.alive = True  # Indique si le joueur est en vie
+# player.py
 
-class Player2:
+class Player:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.alive = True  # Indique si le joueur est en vie
+        self.alive = True  # Le joueur est vivant au début
+
+class Player1(Player):
+    pass
+
+class Player2(Player):
+    pass
